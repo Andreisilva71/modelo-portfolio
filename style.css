@@ -12,6 +12,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -20,6 +21,7 @@ body {
   font-family: var(--font-body);
   margin: 0;
   overflow-x: hidden;
+  max-width: 100vw;
 }
 
 ::selection {
@@ -132,6 +134,7 @@ body {
   font-family: var(--font-signature);
   font-style: italic;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .hero-image-wrapper {
@@ -147,6 +150,7 @@ body {
 .hero-image {
   height: 85%;
   width: auto;
+  max-width: 100%;
   object-fit: cover;
   object-position: top;
   filter: contrast(1.25);
@@ -415,14 +419,17 @@ body.section-sobre-active .footer-right {
 }
 
 @media (max-width: 480px) {
-  body { overflow-x: hidden; }
-  .site-header { padding: 1.5rem 1.5rem; }
-  .site-footer { padding: 1.5rem; }
+  .decorative-border { margin: 0.5rem; }
+  .site-header { padding: 1.5rem 1.2rem; }
+  .site-footer { padding: 1.5rem 1.2rem; justify-content: center; }
+  .footer-left { display: none; }
+  .footer-right { align-items: center; text-align: center; gap: 0.8rem; }
   .brand-logo { font-size: 1.5rem; }
-  .mobile-close-btn { right: 1.5rem; top: 1.5rem; }
+  .mobile-close-btn { right: 1.2rem; top: 1.5rem; }
   .social-link { font-size: 12px; letter-spacing: 0.15em; }
   .about-title { font-size: 2rem; }
   .about-text { font-size: 1rem; }
-  .ghost-text { font-size: 35vw; transform: translateY(-1rem); }
-  .hero-image { height: 70%; object-position: 50% 10%; }
+  .ghost-text { font-size: 22vw; transform: translateY(-1rem); }
+  .hero-image { height: 75%; max-width: 100%; object-fit: contain; }
+  .about-section { padding-bottom: 10rem; }
 }
