@@ -465,7 +465,7 @@ body.section-sobre-active .footer-right {
   .footer-right { align-items: center; text-align: center; gap: 0.8rem; }
   .brand-logo { font-size: 1.5rem; }
   .mobile-close-btn { right: 1.2rem; top: 1.5rem; }
-  .social-link { font-size: 12px; letter-spacing: 0.15em; }
+  .social-link { font-size: 14px; letter-spacing: 0.15em; }
   .about-title { font-size: 2rem; }
   .about-text { font-size: 1rem; }
   .ghost-text { font-size: 22vw; transform: translateY(-1rem); }
@@ -557,8 +557,8 @@ body.section-sobre-active .footer-right {
   }
 
   .social-link {
-    font-size: 10px;
-    letter-spacing: 0.1em;
+    font-size: 14px;
+    letter-spacing: 0.15em;
   }
 
   /* Borda decorativa - remover ou diminuir no mobile para ganhar espaço */
