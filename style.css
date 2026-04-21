@@ -24,6 +24,11 @@ body {
   max-width: 100vw;
 }
 
+body.no-scroll {
+  overflow: hidden !important;
+  touch-action: none !important;
+}
+
 ::selection {
   background-color: var(--color-primary);
   color: var(--color-on-primary);
@@ -111,7 +116,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  z-index: 10; /* Mantém abaixo do menu (100) mas acima do fundo */
 }
 
 .hero-bg-text-wrapper {
@@ -322,20 +327,23 @@ body {
 .delay-2 { transition-delay: 0.3s; }
 .delay-3 { transition-delay: 0.45s; }
 
-/* Mobile Navigation Menu */
 .mobile-nav-overlay {
   position: fixed;
-  inset: 0;
-  background-color: rgba(11, 10, 14, 0.98);
-  backdrop-filter: blur(10px);
-  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(11, 10, 14, 0.4); 
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 999;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   transform: translateY(-100%);
   opacity: 0;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-in-out;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
   pointer-events: none;
 }
 
@@ -345,16 +353,47 @@ body {
   pointer-events: auto;
 }
 
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.5rem;
+  width: 100%;
+}
+
+.mobile-nav-link {
+  font-family: var(--font-body);
+  font-size: 2.2rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #ffffff !important; 
+  opacity: 0.4;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.mobile-nav-link.active, .mobile-nav-link:hover {
+  opacity: 1;
+  color: #ff3b00 !important; 
+  font-weight: 700;
+  text-shadow: 0 0 20px rgba(255, 59, 0, 0.5);
+}
+
 .mobile-close-btn {
   position: absolute;
-  top: 2.5rem;
-  right: 3rem;
-  background: none;
-  border: none;
+  top: 1.2rem;
+  right: 1.2rem;
+  background-color: var(--color-background);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--color-white);
   cursor: pointer;
-  padding: 0;
-  display: flex;
   transition: transform 0.3s;
 }
 
@@ -370,26 +409,26 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.5rem;
+  gap: 2rem;
+  width: 100%;
 }
 
 .mobile-nav-link {
   font-family: var(--font-body);
-  font-size: 2rem;
-  letter-spacing: 0.2em;
+  font-size: 2.5rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
-  color: rgba(226, 223, 220, 0.6);
-  font-weight: 500;
+  color: var(--color-white);
+  font-weight: 600;
   transition: all 0.3s;
 }
 
-.mobile-nav-link.active, .mobile-nav-link:hover {
-  color: var(--color-accent);
-  font-weight: 700;
+.mobile-nav-link.active {
+  color: var(--color-accent) !important;
+  text-shadow: 0 0 15px rgba(255, 59, 0, 0.5);
 }
 
-/* Footer Visibility Logic */
 .footer-right {
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
@@ -432,4 +471,169 @@ body.section-sobre-active .footer-right {
   .ghost-text { font-size: 22vw; transform: translateY(-1rem); }
   .hero-image { height: 75%; max-width: 100%; object-fit: contain; }
   .about-section { padding-bottom: 10rem; }
+}
+
+/* --- AJUSTES DE RESPONSIVIDADE MOBILE --- */
+
+@media (max-width: 768px) {
+  /* Ajuste do Header */
+  .site-header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .brand-logo {
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+  }
+
+  /* Ajuste da Seção Hero */
+  .hero-section {
+    position: relative;
+    z-index: 10;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .ghost-text {
+    font-size: 20vw; /* Texto de fundo menor para não quebrar */
+    transform: translateY(-10%);
+    -webkit-text-stroke: 1px rgba(255, 59, 0, 0.2); /* Borda mais fina no mobile */
+  }
+
+  .hero-image-wrapper {
+    height: 60%; /* Reduz a altura da imagem para não cobrir tudo */
+    align-items: center;
+  }
+
+  .hero-image {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* Ajuste da Seção Sobre */
+  .about-section {
+    padding: 5rem 1.5rem 12rem; /* Aumenta o respiro inferior para o footer */
+  }
+
+  .about-title {
+    font-size: 2.2rem;
+    text-align: center;
+  }
+
+  .about-text {
+    font-size: 1rem;
+    text-align: justify;
+    line-height: 1.6;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr; /* Garante uma coluna única */
+    gap: 1rem;
+  }
+
+  /* Ajuste do Footer Mobile */
+  .site-footer {
+    padding: 1.5rem;
+    background: linear-gradient(to top, var(--color-background) 60%, transparent); /* Gradiente para legibilidade */
+    pointer-events: auto; /* Garante que os links funcionem */
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .footer-left {
+    display: none; /* Remove elementos desnecessários no mobile */
+  }
+
+  .footer-right {
+    flex-direction: row; /* Links lado a lado no mobile */
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .social-link {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  /* Borda decorativa - remover ou diminuir no mobile para ganhar espaço */
+  .decorative-border {
+    margin: 0.5rem;
+    opacity: 0.5;
+  }
+}
+
+/* Ajustes específicos para telas muito pequenas (iPhone SE, etc) */
+@media (max-width: 480px) {
+  .ghost-text {
+    font-size: 22vw;
+  }
+  
+  .about-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* Ajuste de Respiro e Leitura no Mobile */
+@media (max-width: 768px) {
+  /* Impede qualquer rolagem lateral acidental no body */
+  body {
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+  }
+
+  .about-section {
+    /* Ajustamos para 2rem de cada lado para dar distância da borda decorativa */
+    padding: 6rem 2rem 8rem !important;
+    width: 100%;
+    box-sizing: border-box; /* Fundamental para o padding não "empurrar" o site para fora */
+  }
+
+  .about-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .about-text {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    text-align: left;
+    width: 100%;
+    /* Remove qualquer margem negativa ou largura fixa que possa existir */
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .about-card {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1.5rem;
+    /* Garante que o card não tente ser maior que a tela */
+    max-width: calc(100vw - 4rem); 
+  }
+}
+
+/* Correção para telas muito pequenas */
+@media (max-width: 480px) {
+  .site-header, .site-footer {
+    /* Ajusta o padding para alinhar com o texto do "Sobre" */
+    padding: 1.5rem 2rem !important;
+  }
+
+  .about-section {
+    padding: 5rem 2rem 7rem !important;
+  }
+
+  .about-title {
+    font-size: 1.8rem !important;
+    width: 100%;
+  }
 }
